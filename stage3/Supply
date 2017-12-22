@@ -13,7 +13,7 @@ class Supply{
    // Display supply
      void display(String s){ //string s is good or bad
       if(notEatten){
-      image(s+"MedSupply", x, y);}
+      image("s"+MedSupply, x, y);}
      }
 
    // Check collision with player
