@@ -2,6 +2,7 @@ PImage title, gameover, gamewin, startNormal, startHovered;
 PImage goodMedFull, goodMedTwoThird, goodMedOneThird;
 PImage badMedFull, badMedTwoThird, badMedOneThird;
 PImage bgA, bgB, goodHealth, badHealth, lifeA, lifeB;
+PImage goodMedSupply, badMedSupply;
 PImage supply, cutin, germ;
 //PImage[][] soils, stones;
 PFont font;
@@ -30,8 +31,8 @@ int gameTimer = GAME_INIT_TIMER;
 //bonus time****************************
 //final float CLOCK_BONUS_SECONDS = 15f;
 
-Player playerA = new Player();
-Player playerB = new Player();
+//Player playerA = new Player();
+//Player playerB = new Player();
 
 float playerAX, playerAY,playerBX, playerBY;
 //int playerCol, playerRow;
@@ -87,10 +88,11 @@ void draw(){
   //initial medicine
   image(goodMedFull,PLAYER_A_INIT_X,PLAYER_A_INIT_Y,100,100);
   image(badMedFull,PLAYER_B_INIT_X,PLAYER_B_INIT_Y,100,100);
-  playerA.update();
-  playerB.update();
+ // playerA.update();
+ // playerB.update();
   
   //life
+  /*
    if(playerA.health >3){
       playerA.health =3; 
    }
@@ -104,7 +106,7 @@ void draw(){
       image(badHealth,10+70*i+630,10);   
    }
  
-
+*/
   
 } 
     
@@ -147,10 +149,5 @@ void keyReleased(){
       break;
     }
   }
-
-
-
-
-
 
 }
