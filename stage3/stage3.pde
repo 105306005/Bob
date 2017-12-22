@@ -20,23 +20,37 @@ final int START_BUTTON_HEIGHT = 60;
 final int START_BUTTON_X = 248;
 final int START_BUTTON_Y = 360;
 
+//Enemy
 float[] supplyX, supplyY, germX, germY;
 float germSpeed = 2f;
 
+//Timer
 final int GAME_INIT_TIMER = 7200;
 int gameTimer = GAME_INIT_TIMER;
-
+//bonus time****************************
 //final float CLOCK_BONUS_SECONDS = 15f;
+
 Player playerA = new Player();
+Player playerB = new Player();
 
 float playerAX, playerAY,playerBX, playerBY;
 //int playerCol, playerRow;
-final float PLAYER_B_INIT_X = 895;
+final float PLAYER_A_INIT_X = 270;
+final float PLAYER_A_INIT_Y = 0;
+final float PLAYER_B_INIT_X = 900;
 final float PLAYER_B_INIT_Y = 0;
 
-boolean leftState = false;
-boolean rightState = false;
-boolean downState = false;
+//B
+boolean leftStateB = false;
+boolean rightStateB = false;
+boolean downStateB = false;
+
+//A
+boolean leftStateA = false;
+boolean rightStateA = false;
+boolean downStateA = false;
+
+int playerAHealth = 3;
 int playerBHealth = 3;
 int playerMoveDirection = 0;
 int playerMoveTimer = 0;
@@ -71,9 +85,10 @@ void draw(){
   line(630,0,630,7200);
   
   //initial medicine
-  //image(goodMedFull,PLAYER_A_INIT_X,PLAYER_A_INIT_Y,100,100);
+  image(goodMedFull,PLAYER_A_INIT_X,PLAYER_A_INIT_Y,100,100);
   image(badMedFull,PLAYER_B_INIT_X,PLAYER_B_INIT_Y,100,100);
   playerA.update();
+  playerB.update();
   
   //life
    if(playerA.health >3){
@@ -92,15 +107,11 @@ void draw(){
 
   
 } 
-  
-  
-  
-  
-  
+    
 boolean isHit(float ax, float ay, float aw, float ah, float bx, float by, float bw, float bh){
   return  ax + aw > bx &&    // a right edge past b left
-        ax < bx + bw &&    // a left edge past b right
-        ay + ah > by &&    // a top edge past b bottom
+        ax < bx + bw &&      // a left edge past b right
+        ay + ah > by &&      // a top edge past b bottom
         ay < by + bh;
 }
 
@@ -108,13 +119,13 @@ void keyPressed(){
   if(key==CODED){
     switch(keyCode){
       case LEFT:
-      leftState = true;
+      leftStateB = true;
       break;
       case RIGHT:
-      rightState = true;
+      rightStateB = true;
       break;
       case DOWN:
-      downState = true;
+      downStateB = true;
       break;
     }
   }else if(key == 'r'){
@@ -126,13 +137,13 @@ void keyReleased(){
   if(key==CODED){
     switch(keyCode){
       case LEFT:
-      leftState = false;
+      leftStateB = false;
       break;
       case RIGHT:
-      rightState = false;
+      rightStateB = false;
       break;
       case DOWN:
-      downState = false;
+      downStateB = false;
       break;
     }
   }
