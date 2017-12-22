@@ -1,7 +1,8 @@
 PImage title, gameover, gamewin, startNormal, startHovered;
 PImage goodMedFull, goodMedTwoThird, goodMedOneThird;
 PImage badMedFull, badMedTwoThird, badMedOneThird;
-PImage bgA, bgB, goodHealth, badHealth, lifeA, lifeB;
+PImage bgA, bgB, goodHealth, badHealth;
+PImage goodMedSupply, badMedSupply;
 PImage supply, cutin, germ;
 //PImage[][] soils, stones;
 PFont font;
@@ -30,11 +31,12 @@ int gameTimer = GAME_INIT_TIMER;
 //bonus time****************************
 //final float CLOCK_BONUS_SECONDS = 15f;
 
-Player playerA = new Player();
-Player playerB = new Player();
+Player playerA = new Player(1);
+Player playerB = new Player(2);
 
-float playerAX, playerAY,playerBX, playerBY;
+//float playerAX, playerAY,playerBX, playerBY;
 //int playerCol, playerRow;
+//it should be in Player class
 final float PLAYER_A_INIT_X = 270;
 final float PLAYER_A_INIT_Y = 0;
 final float PLAYER_B_INIT_X = 900;
@@ -70,8 +72,8 @@ void setup() {
   startHovered = loadImage("img/startHovered.png");
   goodMedFull = loadImage("img/goodMedFull.png");
   badMedFull = loadImage("img/badMedFull.png");
-  lifeA = loadImage("img/lifeA.png");
-  lifeB = loadImage("img/lifeB.png");
+  goodHealth = loadImage("img/goodHealth.png");
+  badHealth = loadImage("img/badHealth.png");
   
   font = createFont("font/font.ttf", 56);
   textFont(font);
@@ -85,23 +87,25 @@ void draw(){
   line(630,0,630,7200);
   
   //initial medicine
-  image(goodMedFull,PLAYER_A_INIT_X,PLAYER_A_INIT_Y,100,100);
-  image(badMedFull,PLAYER_B_INIT_X,PLAYER_B_INIT_Y,100,100);
-  playerA.update();
-  playerB.update();
+   playerA.display(1);
+   playerB.display(2);
   
   //life
+  /*
    if(playerA.health >3){
       playerA.health =3; 
    }
+   */
    for(int i=playerA.health-1; i>-1 ; i--){ 
-      image(goodHealth,10+70*i,10);   
+      image(goodHealth,10+50*i,10,50,50);   
    }
-   if(playerBHealth>3){
-      playerBHealth=3; 
-   }
-   for(int i=playerBHealth-1; i>-1 ; i--){ 
-      image(badHealth,10+70*i+630,10);   
+   /*
+   if(playerB.health>3){
+      playerB.health=3; 
+   } 
+   */
+   for(int i=-1; i>-1 ; i--){ 
+      image(badHealth,10+50*i+630,10,50,50);   
    }
  
 
@@ -147,10 +151,5 @@ void keyReleased(){
       break;
     }
   }
-
-
-
-
-
 
 }
