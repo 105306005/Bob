@@ -1,4 +1,5 @@
 class Supply{
+
   boolean notEatten;
   float x, y;
   float w = 90;
@@ -10,22 +11,23 @@ class Supply{
     this.y = y;
 }
 
-   // Display supply
-     void display(String s){ //string s is good or bad
+	 // Display supply
+     void display(int i){ //cause can't think of how to use string
       if(notEatten){
-      image("s"+MedSupply, x, y);}
+        if(i==1){image(goodMedSupply, x, y);}
+	     	if(i==2){image(badMedSupply, x, y);}
+       }
      }
 
-   // Check collision with player
-      void checkCollision(Player player){
-      if(isHit(x, y, w, h, player.x, player.y, player.w, player.h)
+	 // Check collision with player
+     void checkCollision(Player player){
+			if(isHit(x, y, w, h, player.x, player.y, player.w, player.h) //isEatten
           &&player.health < player.PLAYER_MAX_HEALTH){
 
-        player.health ++;
-        x = y = -1000; // don't show on screen
-        notEatten = false;
+				player.health ++;
+				x = y = -1000; // don't show on screen
+        notEatten = false;  
       }
-  }
-
-  
+     
+	}
 }
