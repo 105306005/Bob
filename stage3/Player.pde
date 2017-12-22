@@ -1,88 +1,76 @@
-class Player {
-	
-	float x, y;
-	float w = 100, h = 100;
-	int col, row;
-  final float PLAYER_A_INIT_X = 265;
-  final float PLAYER_A_INIT_Y = 0;
+class Player{
 
-	int health = 3;
-	final int PLAYER_MAX_HEALTH = 3;
-
-	//int moveDirection = 0;
-	int moveTimer = 0;
-	int moveDuration = 15;
+  float x, y;
+  float w = 90, h = 90;
+  int col, row;
+  final float PLAYER_A_INIT_X = 270;
+  final float PLAYER_B_INIT_X = 900;
+  final float PLAYER_INIT_Y = 0; //INIT_Y are the same
+  final float DOWN_SPEED = 2;
+  final float RIGHT_LEFT_SPEED = 5;
   
-  Player(){
-    health = 2;
-    x = PLAYER_A_INIT_X;
-    y = PLAYER_A_INIT_Y;
-    col = (int) x / 100;
-    row = (int) y / 100;
+  int health = 3;
+  final int PLAYER_MAX_HEALTH = 3;
+
+  //int moveDirection = 0;
+  int moveTimer = 0;
+  int moveDuration = 15;
+  
+  Player(int i){ //cause can't think of how to use String
+    health = 3;
+    if(i==1){ x = PLAYER_A_INIT_X;}
+    if(i==2){ x = PLAYER_B_INIT_X;}
+    y = PLAYER_INIT_Y;
+    col = (int) x / 90;
+    row = (int) y / 90;
     moveTimer = 0;
   }
   
-	void update(){
-
-		// If player is not moving, we have to decide what player has to do next
-		if(moveTimer == 0)
-    {
-
-			if((row + 1 < LEG_ROW_COUNT && soils[col][row + 1].health == 0) || row + 1 >= SOIL_ROW_COUNT)
-      {
-				//groundhogDisplay = groundhogDown;
-				moveDirection = DOWN;
-				moveTimer = moveDuration;
-
-			}else{
-
-				if(leftState){
-					//groundhogDisplay = groundhogLeft;
-
-					// Check left boundary
-				if(col > 0){
-
-						if(row >= 0 && soils[col - 1][row].health > 0){
-							soils[col - 1][row].health --;
-						}else{
-							moveDirection = LEFT;
-							moveTimer = moveDuration;
-						}
-
-					}
-
-				}else if(rightState){
-
-					//groundhogDisplay = groundhogRight;
-
-					// Check right boundary
-					if(col < SOIL_COL_COUNT - 1){
-
-						if(row >= 0 && soils[col + 1][row].health > 0){
-							soils[col + 1][row].health --;
-						}else{
-							moveDirection = RIGHT;
-							moveTimer = moveDuration;
-						}
-
-					}
-
-				}else if(downState){
-
-					//groundhogDisplay = groundhogDown;
-
-					// Check bottom boundary
-					if(row < SOIL_ROW_COUNT - 1){
-
-						soils[col][row + 1].health --;
-
-					}
-				}
-			}
+  void display(int i){ 
+    if(i==1){
+    image(goodMedFull,x,y,90,90);}
+    if(i==2){
+    image(badMedFull,x,y,90,90);}  
+  }
+   
+  void update(int i){  //too difficult so still thinking
+  if(i==1){  //A
+    if(x<0){ x=0;}// Check left boundary
+    if(x>540){ x=540;}// Check right boundary
+    if(leftStateA){
+         x-=RIGHT_LEFT_SPEED;
+    }else if(rightStateA){
+         x+=RIGHT_LEFT_SPEED;}
+    }     
+  if(i==2){  //B
+    if(x<630){ x=630;}// Check left boundary
+    if(x>1170){ x=1170;}// Check right boundary
+    if(leftStateB){
+           x-=RIGHT_LEFT_SPEED;
+     }else if(rightStateB){
+           x+=RIGHT_LEFT_SPEED;}
+   }    
+      y+=DOWN_SPEED;
+  
+  }
+  
+  void hurt(int i){  //cause can't think of how to use String
+    health --;
+    
+    if(health == 0){  //the other player win
+      gameState = GAME_OVER;
+      
+    }else{   //return to the begin and reset some value
+      if(i==1){ x = PLAYER_A_INIT_X;}
+      if(i==2){ x = PLAYER_B_INIT_X;}
+      y = PLAYER_INIT_Y;
+      col = (int) x / 90;
+      row = (int) y / 90;
+      //soils[col][row + 1].health = 15;
+      moveTimer = 0;
     }
-image(goodMedFull, x, y,100,100);
+  }
+  
 
 }
-
-
-	}
+  
