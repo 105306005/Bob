@@ -1,0 +1,31 @@
+class Supply{
+  boolean notEatten;
+  float x, y;
+  float w = 90;
+  float h = 90;
+
+  Supply(float x, float y){
+    notEatten = true;  //wasn't eatten by player
+    this.x = x;
+    this.y = y;
+}
+
+   // Display supply
+     void display(String s){ //string s is good or bad
+      if(notEatten){
+      image(s+"MedSupply", x, y);}
+     }
+
+   // Check collision with player
+      void checkCollision(Player player){
+      if(isHit(x, y, w, h, player.x, player.y, player.w, player.h)
+          &&player.health < player.PLAYER_MAX_HEALTH){
+
+        player.health ++;
+        x = y = -1000; // don't show on screen
+        notEatten = false;
+      }
+  }
+
+  
+}
